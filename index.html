@@ -6,10 +6,15 @@
         <style>
             .color-container {
                 border: 1px solid black;
-                height: 500px;
-                width: 500px;
-                background-color: blueviolet;
+                max-width: 500px;
+                display: flex;
+                flex-flow: row wrap;
                 margin: 0 auto;
+            }
+
+            .color-square {
+                height: 50px;
+                width: 50px;
             }
         </style>
     </head>
@@ -17,11 +22,41 @@
         <header></header>
         <main>
             <section>
-                <div class="color-container">
-
-                </div>
+                <article class="color-container"></article>
             </section>
         </main>
         <footer></footer>
+        <script>
+            const getRandomDigit = () => {
+                const number = Math.floor(Math.random() * 15);
+                switch (number) {
+                    case 10: return 'a';
+                    case 11: return 'b';
+                    case 12: return 'c';
+                    case 13: return 'd';
+                    case 14: return 'e';
+                    case 15: return 'f';
+                    default: return number;
+                }
+            };
+            const getRandomHexCode = () => {
+                let codeDigits = []
+                for(let i = 0; i <= 5; i++) {
+                    codeDigits.push(getRandomDigit());
+                }
+                return `#${codeDigits.join('')}`
+            }
+            const container = document.querySelector('.color-container');
+            const fragment = new DocumentFragment();
+            for(let i = 0;i < 100;i++) {
+                const smallSquare = document.createElement('div');
+                smallSquare.className = 'color-square';
+                smallSquare.setAttribute('style', `background-color: ${getRandomHexCode()}`);
+                console.log(smallSquare.style)
+                fragment.append(smallSquare);
+            };
+            container.append(fragment);
+            console.log(document.querySelectorAll('.color-square'))
+        </script>
     </body>
 </html>
